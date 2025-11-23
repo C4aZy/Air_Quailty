@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report Pollution - CleanAir Map</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>🌍 CleanAir Map</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/report">Report Pollution</a>
+            <a href="/statistics">Statistics</a>
+            <a href="/about">About</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="report-form">
+            <h2>Report Pollution in Your Area</h2>
+            <p>Help your community by reporting pollution sources</p>
+            
+            <form method="POST" action="/report">
+                <div class="form-group">
+                    <label for="location">Location Name:</label>
+                    <input type="text" id="location" name="location" required 
+                           placeholder="e.g., MG Road, Bangalore">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="latitude">Latitude:</label>
+                        <input type="number" step="0.000001" id="latitude" name="latitude" required
+                               placeholder="e.g., 12.9716">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="longitude">Longitude:</label>
+                        <input type="number" step="0.000001" id="longitude" name="longitude" required
+                               placeholder="e.g., 77.5946">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="pollution_type">Pollution Type:</label>
+                    <select id="pollution_type" name="pollution_type" required>
+                        <option value="">Select type...</option>
+                        <option value="Vehicle Emissions">Vehicle Emissions</option>
+                        <option value="Construction Dust">Construction Dust</option>
+                        <option value="Industrial Smoke">Industrial Smoke</option>
+                        <option value="Burning Waste">Burning Waste</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description:</label>
+                    <textarea id="description" name="description" rows="4" required
+                              placeholder="Describe the pollution issue..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Submit Report</button>
+            </form>
+
+            <div class="help-text">
+                <p><strong>How to find coordinates:</strong></p>
+                <p>1. Open Google Maps</p>
+                <p>2. Right-click on location</p>
+                <p>3. Click on coordinates to copy</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Data provided by World Air Quality Index Project | Community-powered reporting</p>
+    </footer>
+</body>
+</html>

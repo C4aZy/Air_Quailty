@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistics - CleanAir Map</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>🌍 CleanAir Map</h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/report">Report Pollution</a>
+            <a href="/statistics">Statistics</a>
+            <a href="/about">About</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="statistics">
+            <h2>Air Quality Statistics</h2>
+            
+            <div class="stats-grid">
+                {% for city, data in stats.items() %}
+                <div class="stat-card" style="border-left: 5px solid {{ data.color }}">
+                    <h3>{{ city }}</h3>
+                    <div class="stat-value" style="color: {{ data.color }}">{{ data.latest_aqi }}</div>
+                    <p class="stat-label">Current AQI</p>
+                    <p class="stat-category">{{ data.category }}</p>
+                    <p class="stat-avg">7-day Average: {{ data.avg_aqi }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="community-reports">
+            <h2>Community Reports</h2>
+            <p>Total Reports: {{ reports|length }}</p>
+            
+            <div class="reports-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Location</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for report in reports %}
+                        <tr>
+                            <td>{{ report[1] }}</td>
+                            <td><span class="badge">{{ report[4] }}</span></td>
+                            <td>{{ report[5] }}</td>
+                            <td>{{ report[6] }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Data provided by World Air Quality Index Project | Community-powered reporting</p>
+    </footer>
+</body>
+</html>

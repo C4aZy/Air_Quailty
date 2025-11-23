@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanAir Map - Real-Time Air Quality</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <h1>🌍 CleanAir Map</h1>
+        <p>Real-Time Air Quality Monitoring & Community Reporting</p>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/report">Report Pollution</a>
+            <a href="/statistics">Statistics</a>
+            <a href="/about">About</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="air-quality-cards">
+            <h2>Current Air Quality</h2>
+            <div class="cards-container">
+                {% for data in air_data %}
+                <div class="card" style="border-left: 5px solid {{ data.color or 'transparent' }};">
+                    <h3>{{ data.city }}</h3>
+                    <div class="aqi-value" style="color: {{ data.color or 'inherit' }};">{{ data.aqi }}</div>
+                    <p class="category">{{ data.category }}</p>
+                    <p class="pm25">PM2.5: {{ data.pm25 }} µg/m³</p>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+
+        <section class="map-section">
+            <h2>Live Air Quality Map</h2>
+            <div class="map-container">
+                {{ map_html|safe }}
+            </div>
+            <div class="legend">
+                <h3>AQI Legend</h3>
+                <div><span style="background: green;"></span> 0-50: Good</div>
+                <div><span style="background: yellow;"></span> 51-100: Moderate</div>
+                <div><span style="background: orange;"></span> 101-150: Unhealthy for Sensitive</div>
+                <div><span style="background: red;"></span> 151-200: Unhealthy</div>
+                <div><span style="background: purple;"></span> 201-300: Very Unhealthy</div>
+                <div><span style="background: maroon;"></span> 300+: Hazardous</div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Data provided by World Air Quality Index Project | Community-powered reporting</p>
+    </footer>
+</body>
+</html>
