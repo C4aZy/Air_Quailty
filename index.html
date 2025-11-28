@@ -23,9 +23,9 @@
             <h2>Current Air Quality</h2>
             <div class="cards-container">
                 {% for data in air_data %}
-                <div class="card" style="border-left: 5px solid {{ data.color or 'transparent' }};">
+                <div class="card" style="border-left: 5px solid {{ data.color|default('transparent') }};">
                     <h3>{{ data.city }}</h3>
-                    <div class="aqi-value" style="color: {{ data.color or 'inherit' }};">{{ data.aqi }}</div>
+                    <div class="aqi-value" style="color: {{ data.color|default('inherit') }};">{{ data.aqi }}</div>
                     <p class="category">{{ data.category }}</p>
                     <p class="pm25">PM2.5: {{ data.pm25 }} µg/m³</p>
                 </div>
